@@ -1,10 +1,8 @@
-# Shark Chat
+# Mee Chat
 
 A Chat app built with Trpc, Tailwind CSS, Ably, Redis, Cloudinary, Drizzle ORM, Next.js.
 
 This repository is a monorepo ([Turborepo](https://turbo.build)).
-
-![preview](./document/image.png)
 
 ## Features
 
@@ -26,13 +24,9 @@ This repository is a monorepo ([Turborepo](https://turbo.build)).
 - Light & Dark Mode
 - 100% Typescript
 
-**Play with it:** https://shark-chat.vercel.app
-<br />
-**Learn More:** https://shark-chat.vercel.app/info
-
 ## Play with it Locally
 
-Shark Chat integrated with many third-party service for supporting wide spectrum of features and work perfectly on serverless environment.
+Mee Chat integrated with many third-party service for supporting wide spectrum of features and work perfectly on serverless environment.
 
 Thus, you have to register an account for each services in order to setup the project correctly before playing with it locally.
 Please fill all environment variables in the [.env.example](/.env.example).
