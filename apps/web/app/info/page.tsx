@@ -19,7 +19,7 @@ export default function InfoPage() {
           height={25}
           className="size-8 mr-2 rounded-full"
         />
-        <p className="font-semibold">Shark Chat</p>
+        <p className="font-semibold">Mee Chat</p>
 
         <Link
           href="/"
@@ -36,7 +36,7 @@ export default function InfoPage() {
             <h2 className="font-medium">Fast and Light</h2>
           </div>
           <p className="text-sm text-muted-foreground">
-            Built on top of Next.js App Router, Shark Chat is fast and
+            Built on top of Next.js App Router, Mee Chat is fast and
             beautiful.
           </p>
         </div>
@@ -89,7 +89,7 @@ function Hero() {
         Web Messaging
       </h1>
       <p className="mt-3 text-sm md:text-base text-muted-foreground text-center">
-        Shark Chat is an open-source chat app built with Next.js and Tailwind
+        Mee Chat is an open-source chat app built with Next.js and Tailwind
         CSS.
       </p>
       <div className="grid grid-cols-2 gap-3 mt-6">
