@@ -27,7 +27,7 @@
       ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ],
     "files.exclude": {
-      ".turbo": true,
+      ".turbo": true, 
       "node_modules": true,
     },
     "search.useParentIgnoreFiles": true,

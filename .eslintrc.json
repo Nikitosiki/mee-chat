@@ -1,8 +1,6 @@
 {
   "extends": "next/core-web-vitals",
   "parserOptions": {
-    "babelOptions": {
-      "presets": ["./apps/web/node_modules/next/babel"]
-    }
+    "babelOptions": { "presets": ["./apps/web/node_modules/next/babel"] }
   }
 }
