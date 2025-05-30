@@ -1,0 +1,45 @@
+x-common: &env
+  env_file:
+    - ./.env
+  environment:
+    NODE_ENV: production
+
+services:
+  pgdb:
+    image: postgres:latest
+    restart: on-failure
+    ports:
+      - ${PORT_POSTGRES}:${PORT_POSTGRES}
+    volumes:
+      - pgdata:/var/lib/postgresql/data/pgdata
+    container_name: mee-1-postgres
+    <<: *env
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "${PORT_PGADMIN}:80"
+    depends_on:
+      - pgdb
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    container_name: mee-1-pgadmin
+    <<: *env
+
+  # backend:
+  #   build:
+  #     context: .
+  #     args:
+  #       DATABASE_URL: ${DATABASE_URL}
+  #   restart: always
+  #   ports:
+  #     - ${PORT_BACKEND}:${PORT_BACKEND}
+  #   depends_on:
+  #     - pgdb
+  #   container_name: mee-backend
+  #   <<: *env
+
+volumes:
+  pgdata:
+  pgadmin-data:
