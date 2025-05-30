@@ -64,7 +64,7 @@ function AttachmentImage({ attachment }: { attachment: AttachmentType }) {
             fill
             sizes="(max-width: 500px) 90vw, 500px"
             className="cursor-pointer"
-            loader={cloudinaryLoader}
+            // loader={cloudinaryLoader}
             onLoad={() => setIsLoaded(true)}
           />
         </DialogTrigger>
