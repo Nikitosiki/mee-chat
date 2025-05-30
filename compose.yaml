@@ -57,7 +57,7 @@ services:
 
   client:
     build:
-      context: ../mee
+      context: .
       args:
         GITHUB_ID: ${GITHUB_ID}
         GITHUB_SECRET: ${GITHUB_SECRET}
