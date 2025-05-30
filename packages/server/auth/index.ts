@@ -1,6 +1,6 @@
 import { AuthOptions, DefaultSession } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
-import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 
 import { DefaultJWT } from "next-auth/jwt";
 import { authAdapter } from "./nextauth-adapter";
@@ -25,14 +25,18 @@ declare module "next-auth/jwt" {
 export const authOptions: AuthOptions = {
   adapter: authAdapter,
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
-    DiscordProvider({
-      clientId: process.env.DISCORD_CLIENT_ID!,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET!,
-    }),
+    // DiscordProvider({
+    //   clientId: process.env.DISCORD_CLIENT_ID!,
+    //   clientSecret: process.env.DISCORD_CLIENT_SECRET!,
+    // }),
   ],
   pages: {
     signIn: "/auth/signin",
