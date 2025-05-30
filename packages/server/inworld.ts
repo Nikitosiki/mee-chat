@@ -146,7 +146,7 @@ async function createBotAccount() {
     .insert(users)
     .values({
       id: "shark",
-      name: "Shark AI",
+      name: "Mee AI",
       is_ai: true,
     })
     .onConflictDoNothing()
