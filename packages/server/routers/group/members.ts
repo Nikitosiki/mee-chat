@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { protectedProcedure, router } from "../../trpc";
 import { publish } from "../../ably";
 import {

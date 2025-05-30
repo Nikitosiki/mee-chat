@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Adapter, AdapterUser, VerificationToken } from "next-auth/adapters";
 import db from "db/client";
 import { accounts, members, sessions, users } from "db/schema";

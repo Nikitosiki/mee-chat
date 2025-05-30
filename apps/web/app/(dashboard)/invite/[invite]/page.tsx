@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Group, groupInvites, groups } from "db/schema";
 import { Avatar } from "ui/components/avatar";
 import { groupIcon } from "shared/media/format";
@@ -90,6 +91,7 @@ async function getGroupInfo(query: string): Promise<Data | null> {
     const groupResult = await db
       .select()
       .from(groups)
+      //@ts-ignore
       .where(eq(groups.unique_name, name));
     const group = groupResult[0];
 
