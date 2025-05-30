@@ -12,7 +12,7 @@ services:
       - ${PORT_POSTGRES}:${PORT_POSTGRES}
     volumes:
       - pgdata:/var/lib/postgresql/data/pgdata
-    container_name: mee-1-postgres
+    container_name: mee-postgres
     <<: *env
 
   pgadmin:
@@ -24,21 +24,58 @@ services:
       - pgdb
     volumes:
       - pgadmin-data:/var/lib/pgadmin
-    container_name: mee-1-pgadmin
+    container_name: mee-pgadmin
     <<: *env
 
-  # backend:
-  #   build:
-  #     context: .
-  #     args:
-  #       DATABASE_URL: ${DATABASE_URL}
-  #   restart: always
-  #   ports:
-  #     - ${PORT_BACKEND}:${PORT_BACKEND}
-  #   depends_on:
-  #     - pgdb
-  #   container_name: mee-backend
-  #   <<: *env
+  proxy:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.template.conf:/etc/nginx/nginx.template.conf
+      - /etc/ssl/mee.social:/etc/ssl/mee.social
+    depends_on:
+      - backend
+      - client
+    container_name: mee-proxy
+    command: /bin/bash -c "envsubst < etc/nginx/nginx.template.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    <<: *env
+
+  landing:
+    build:
+      context: ../mee-landing
+      args:
+        PORT: ${PORT_LANDING}
+    restart: always
+    ports:
+      - ${PORT_LANDING}
+    container_name: mee-landing
+    <<: *env
+
+  client:
+    build:
+      context: ../mee
+      args:
+        GITHUB_ID: ${GITHUB_ID}
+        GITHUB_SECRET: ${GITHUB_SECRET}
+        GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+        GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+        NEXTAUTH_URL: ${NEXTAUTH_URL}
+        ABLY_API_KEY: ${ABLY_API_KEY}
+        NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+        NEXT_PUBLIC_CLOUDINARY_API_KEY: ${NEXT_PUBLIC_CLOUDINARY_API_KEY}
+        CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+        REDIS_URL: ${REDIS_URL}
+        REDIS_TOKEN: ${REDIS_TOKEN}
+    restart: always
+    ports:
+      - ${PORT_FRONTEND}
+    container_name: mee-client
+    <<: *env
 
 volumes:
   pgdata:
