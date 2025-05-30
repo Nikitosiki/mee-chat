@@ -65,7 +65,7 @@ export async function generateMetadata({
 
   if (info != null) {
     const title = `Invite to ${info.group.name}`;
-    const description = `Join ${info.group.name} (@${info.group.unique_name}) on Shark Chat`;
+    const description = `Join ${info.group.name} (@${info.group.unique_name}) on Mee Chat`;
 
     return {
       title,
