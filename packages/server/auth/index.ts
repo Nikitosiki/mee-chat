@@ -26,8 +26,8 @@ export const authOptions: AuthOptions = {
   adapter: authAdapter,
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
