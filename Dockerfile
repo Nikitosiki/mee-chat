@@ -5,47 +5,12 @@ ARG PNPM_VERSION=9.9.0
 
 FROM node:${NODE_VERSION}-alpine AS base
 
-# 1. Install dependencies only when needed
+# Install pnpm and corepack
+RUN npm install --global corepack@latest && corepack enable pnpm
+
+# Install dependencies only when needed
 FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
-
 WORKDIR /app
-
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
-
-
-# 2. Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-# This will do the trick, use the corresponding env file for each environment.
-# COPY .env.production.sample .env.production
-RUN npm run build
-
-# 3. Production image, copy all the files and run next
-FROM base AS runner
-WORKDIR /app
-
-ENV NODE_ENV=production
-
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-
-COPY --from=builder /app/public ./public
-
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Adding environment variables
 ARG PORT_FRONTEND
@@ -78,8 +43,56 @@ ENV CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
 ENV REDIS_URL=${REDIS_URL}
 ENV REDIS_TOKEN=${REDIS_TOKEN}
 
+# Install dependencies
+COPY package.json pnpm-lock.yaml* .npmrc* ./
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+  if [ -f pnpm-lock.yaml ]; then pnpm i --frozen-lockfile; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
+
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Next.js collects completely anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line in case you want to disable telemetry during the build.
+# ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store  \
+  if [ -f pnpm-lock.yaml ]; then pnpm install && pnpm run db:generate && pnpm run db:push && pnpm build; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
+
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
+
+# Set in compose file
+# ENV NODE_ENV=production
+
+# Uncomment the following line in case you want to disable telemetry during runtime.
+# ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
 USER nextjs
 
 EXPOSE ${PORT_FRONTEND}
 
-CMD HOSTNAME="0.0.0.0" node server.js
+ENV PORT=${PORT_FRONTEND}
+
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]
