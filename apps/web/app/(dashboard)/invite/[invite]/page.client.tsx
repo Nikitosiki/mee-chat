@@ -15,7 +15,7 @@ export function BannerImage({ group }: { group: Group }) {
     <Image
       src={groupBanners.url([group.id], group.banner_hash)}
       alt="Banner"
-      loader={cloudinaryLoader}
+      // loader={cloudinaryLoader}
       fill
       sizes="(max-width: 800px) 100vw, 800px"
       className="blur-lg object-cover"

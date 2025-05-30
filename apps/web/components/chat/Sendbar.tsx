@@ -190,10 +190,10 @@ function Options() {
         <PlusIcon className="size-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onSelect={() => setOpenModal(true)}>
+        {/* <DropdownMenuItem onSelect={() => setOpenModal(true)}>
           <BrainIcon className="size-4" />
           Generate Text
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuItem asChild>
           <label htmlFor="attachment">
             <UploadIcon className="size-4" />

@@ -103,7 +103,7 @@ export function CreateEmoteModal() {
           <input
             id="name"
             className={input()}
-            placeholder="Shark Smile"
+            placeholder="Mee Smile"
             {...form.register("name")}
           />
         </fieldset>

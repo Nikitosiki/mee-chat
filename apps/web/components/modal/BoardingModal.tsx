@@ -15,7 +15,7 @@ export default function BoardingModal() {
   return (
     <SimpleDialog
       title="Welcome!"
-      description="Start talking on Shark Chat!"
+      description="Start talking on Mee Chat!"
       open={modal?.type === "on-boarding"}
       onOpenChange={(v) =>
         v ? setModal({ type: "on-boarding" }) : setModal(undefined)
