@@ -5,7 +5,7 @@ import "@/styles/globals.css";
 import { getBaseUrl } from "@/utils/get-base-url";
 
 export const metadata: Metadata = {
-  title: "Shark Chat",
+  title: "Mee Chat",
   description: "An Open-Source Modern Chat App",
   twitter: {
     card: "summary_large_image",
