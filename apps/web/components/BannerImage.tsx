@@ -24,7 +24,7 @@ export const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>(
             fill
             sizes="(max-width: 800px) 90vw, 800px"
             src={url}
-            loader={cloudinaryLoader}
+            // loader={cloudinaryLoader}
           />
         </div>
       );
