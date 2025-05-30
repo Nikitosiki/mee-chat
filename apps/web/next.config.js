@@ -21,6 +21,7 @@ const nextConfig = {
   async redirects() {
     return [{ source: "/home", destination: "/", permanent: false }];
   },
+  output: "standalone",
 };
 
 module.exports = nextConfig;
