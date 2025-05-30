@@ -23,7 +23,7 @@ export function Item({ emote }: { emote: Serialize<Emote> }) {
             width={50}
             height={50}
             className="rounded-lg flex-shrink-0"
-            loader={cloudinaryLoader}
+            // loader={cloudinaryLoader}
           />
 
           <div className="w-0 flex-1">
