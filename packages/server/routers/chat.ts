@@ -76,7 +76,7 @@ export const chatRouter = router({
         }),
 
         setLastRead(input.channelId, ctx.session.user.id, message.timestamp),
-        input.content.startsWith("@Shark") &&
+        input.content.startsWith("@Mee") &&
           onReceiveMessage({
             content: input.content,
             channel_id: input.channelId,

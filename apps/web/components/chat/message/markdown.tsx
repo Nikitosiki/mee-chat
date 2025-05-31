@@ -33,7 +33,7 @@ function emote(key: number, id: string, inline: boolean) {
       }
       unoptimized={isDiscord}
       className={inline ? "inline my-0 mx-1 size-6" : "m-0"}
-      loader={isDiscord ? undefined : cloudinaryLoader}
+      // loader={isDiscord ? undefined : cloudinaryLoader}
     />
   );
 }
