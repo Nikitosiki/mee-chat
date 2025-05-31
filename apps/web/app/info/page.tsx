@@ -69,12 +69,12 @@ export default function InfoPage() {
         </div>
       </div>
       <a
-        href="https://github.com/fuma-nama"
+        href="https://github.com/Nikitosiki/"
         rel="noreferrer noopener"
         target="_blank"
         className="mt-auto text-center text-sm"
       >
-        Built with ❤️ by Fuma
+        Built with ❤️ by Nikita
       </a>
     </div>
   );
@@ -98,7 +98,7 @@ function Hero() {
         </Link>
 
         <Link
-          href="https://github.com/fuma-nama/shark-chat-js"
+          href="https://github.com/Nikitosiki/mee-chat/"
           target="_blank"
           rel="noreferrer noopener"
           className={button({ size: "large" })}
