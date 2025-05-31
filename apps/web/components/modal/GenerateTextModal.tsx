@@ -63,7 +63,7 @@ function Content({ setValue }: { setValue: (s: string) => void }) {
           color: "long",
           className: "resize-none",
         })}
-        placeholder="Do sharks hunt people?"
+        placeholder="Today Mee is listening to you."
       />
       {mutation.isError && (
         <p className="text-sm text-destructive">{mutation.error.message}</p>

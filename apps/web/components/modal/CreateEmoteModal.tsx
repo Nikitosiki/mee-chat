@@ -87,7 +87,7 @@ export function CreateEmoteModal() {
           <input
             id="id"
             className={input({ className: "mt-2" })}
-            placeholder="shark_happy"
+            placeholder="mee_happy"
             {...form.register("id")}
           />
           {form.formState.errors.id && (

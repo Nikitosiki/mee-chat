@@ -180,5 +180,5 @@ function PrivateInviteItem({ invite }: { invite: Serialize<GroupInvite> }) {
 }
 
 function getInviteUrl(code: string) {
-  return `https://shark-chat.vercel.app/invite/${code}`;
+  return `https://mee.social/invite/${code}`;
 }

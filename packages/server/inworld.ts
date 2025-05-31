@@ -145,7 +145,7 @@ async function createBotAccount() {
   const user = await db
     .insert(users)
     .values({
-      id: "shark",
+      id: "mee",
       name: "Mee AI",
       is_ai: true,
     })
